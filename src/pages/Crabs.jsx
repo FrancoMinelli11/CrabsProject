@@ -10,10 +10,14 @@ export const Crabs = () => {
         const inputPurchaser = document.getElementById('purchaser')
         const inputAmount = document.getElementById('amount')
         const inputIsPaying = document.getElementById('isPaying')
-        const valueIsPaying = inputIsPaying.value
+        if(!inputIsPaying.value || inputIsPaying.value === '' || (inputIsPaying.value !== 'true' && inputIsPaying.value !== 'false')){
+            alert('Ingrese el estado de pago (true/false)')
+            return
+        }
+        const valueIsPaying = inputIsPaying.value === 'true';
         const valuePurchaser = inputPurchaser.value
         const valueAmount = inputAmount.value
-        if (valueAmount && valuePurchaser) {
+        if (valueAmount && valuePurchaser && (valueIsPaying == true || valueIsPaying === false)) {
             setCrabs((prevCrabs) => [
                 ...prevCrabs,
                 { valuePurchaser, valueAmount, method: 'Mercado Pago', isPaying: valueIsPaying }
@@ -45,8 +49,14 @@ export const Crabs = () => {
         inputPurchaser.value = ''
         inputAmount.value = ''
     }
+    const togglePago = (index) => {
+    setCrabs((prevCrabs) =>
+        prevCrabs.map((venta, i) =>
+            i === index ? { ...venta, isPaying: !venta.isPaying } : venta
+        )
+    );
+};
 
-    
     return (
         <div className="p-4">
             <h1 className="my-2 text-xl md:text-2xl">Crabs</h1>
@@ -77,7 +87,11 @@ export const Crabs = () => {
                             <td className="border px-4 py-2">{venta.valuePurchaser}</td>
                             <td className="border px-4 py-2">${venta.valueAmount}</td>
                             <td className="border px-4 py-2">{venta.method}</td>
-                            <td className="border px-4 py-2">{venta.isPaying}</td>
+                            <td className="border px-4 py-2">{venta.isPaying ? 'Sí' : 'No'}{' '}<button onClick={() => togglePago(index)}className="ml-2 text-blue-500 underline hover:text-blue-700"  >
+    Cambiar
+  </button>
+</td>
+
                         </tr>
                     ))}
                     </tbody>
