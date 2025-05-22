@@ -5,8 +5,8 @@ export const MainRouter = () => {
     return (
         <BrowserRouter>
             <Routes>
-                <Route path="/" element={<GetPoke/>}/>
-                <Route path="/crabs" element={<Crabs/>}/>
+                <Route path="/" element={<Crabs/>}/>
+                <Route path="/poke" element={<GetPoke/>}/>
             </Routes>
         </BrowserRouter>
     )
