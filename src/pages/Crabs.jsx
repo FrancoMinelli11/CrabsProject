@@ -34,10 +34,14 @@ export const Crabs = () => {
         const inputPurchaser = document.getElementById('purchaser')
         const inputAmount = document.getElementById('amount')
         const inputIsPaying = document.getElementById('isPaying')
-        const valueIsPaying = inputIsPaying.value
+        if(!inputIsPaying.value || inputIsPaying.value === '' || (inputIsPaying.value !== 'true' && inputIsPaying.value !== 'false')){
+            alert('Ingrese el estado de pago (true/false)')
+            return
+        }
+        const valueIsPaying = inputIsPaying.value === 'true';
         const valuePurchaser = inputPurchaser.value
         const valueAmount = inputAmount.value
-        if (valueAmount && valuePurchaser) {
+        if (valueAmount && valuePurchaser && (valueIsPaying == true || valueIsPaying === false)) {
             setCrabs((prevCrabs) => [
                 ...prevCrabs,
                 { valuePurchaser, valueAmount, method: 'Efectivo', isPaying: valueIsPaying }
